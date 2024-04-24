@@ -17,3 +17,9 @@ Dalam konfigurasi ini:
 - "5672" adalah nomor port default untuk komunikasi AMQP.
 
 Jadi, "guest:guest@localhost:5672" mewakili kredensial (nama pengguna dan kata sandi) yang digunakan untuk terhubung ke broker AMQP lokal yang berjalan pada port 5672.
+
+## Lampiran simulation slow subscriber
+
+![Simulation slow subscriber](assets/images/image1.png)
+
+Berdasarkan lampiran di atas, terlihat terjadi akumulasi 11 pesan dalam antrean pada waktu tertentu. Hal ini disebabkan oleh penundaan dalam pemrosesan pesan oleh Subscriber yang tidak mampu menangani pesan secepat yang dikirim oleh Publisher. Situasi ini semakin diperparah dengan eksekusi berulang *cargo run* pada Publisher yang meningkatkan jumlah pesan yang diterima oleh Subscriber. Akibatnya, Subscriber menjadi terbebani karena harus memproses jumlah pesan yang besar secara bersamaan. Ketidakseimbangan antara kecepatan pengiriman pesan oleh Publisher dan kecepatan pemrosesan oleh Subscriber dapat mengakibatkan penumpukan pesan dalam antrean.
